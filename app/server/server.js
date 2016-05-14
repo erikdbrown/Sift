@@ -83,9 +83,9 @@ passport.deserializeUser(function(email, done) {
 });
 
 passport.use(new GitHubStrategy({
-    clientID: token.CLIENT_ID,
-    clientSecret: token.CLIENT_SECRET,
-    callbackURL: "http://107.170.195.210/auth/github/callback"
+    clientID: process.env.CLIENT_ID || token.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET || token.CLIENT_SECRET,
+    callbackURL: process.env.GITHUB_CALLBACK || "http://localhost:5001/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
   	userController.findOrCreateGitHubUser(profile, accessToken, refreshToken, function(err, user) {
