@@ -6,13 +6,8 @@ var _ = require('lodash');
 var utils = require('../utils/utils.js');
 var config = require('../server.js');
 var connection = null;
-var rConnectConfig;
 
-if (process.env.RETHINK_PORT_8080_TCP_ADDR) {
-  rConnectConfig = { host: 'rethink', db: 'apiTables' }
-} else {
-  rConnectConfig =  { host: 'localhost', db: 'apiTables' }
-}
+var rConnectConfig = { host: process.env.RETHINK_PORT_8080_TCP_ADDR || 'localhost' , db: 'apiTables' };
 
 r.connect(rConnectConfig, function(err, conn) {
 
