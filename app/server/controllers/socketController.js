@@ -6,15 +6,12 @@ var connection = null;
 
 var rConnectConfig;
 
-if (process.env.RETHINK_PORT_8080_TCP_ADDR) {
-  rConnectConfig = { host: 'rethink', db: 'apiTables' }
-} else {
-  rConnectConfig =  { host: 'localhost', db: 'apiTables' }
-}
+var rConnectConfig = { host: process.env.RETHINK_PORT_8080_TCP_ADDR || 'localhost' , db: 'apiTables' };
 
 r.connect(rConnectConfig, function(err, conn) {
   if (err) { console.log(err); }
   connection = conn;
+  console.log("This is the connection: ", connection)
 });
 
 var socketMethods = {
